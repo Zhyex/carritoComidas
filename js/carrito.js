@@ -5,27 +5,25 @@ let contadorCarrito = d.querySelector('.contar-pro');
 //con el query selector puedo escoger aparte de la clase o el id,
 // también el elemento hijo 
 let listadoCarrito = d.querySelector('.list-cart tbody')
-let con=0;
+let con = 0;
 //let toggleCarrito = d.querySelector('carrito')
 
 
-
-
 //darle funcionalidad a todos los botones con la misma clase
-btnProducts.forEach((btn, i) =>{
-    btn.addEventListener('click',()=>{
+btnProducts.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
         con++;
-        contadorCarrito.textContent=con;
+        contadorCarrito.textContent = con;
         informacionProducto(i);
     })
 });
 
 //agregar productos
-function agregarProducto(producto){
+function agregarProducto(producto) {
     //Crea filas
     let row = d.createElement('tr');
     //crear las columnas dentro de la fila
-    row.innerHTML=`
+    row.innerHTML = `
         <td>${con}</td>
         <td><img src="${producto.imagen}" width="70px;"></td>
         <td>${producto.nombre}</td>
@@ -40,7 +38,8 @@ function informacionProducto(index) {
     //voy del hijo al elemento padre con el .parentElement
     //cuantas veces sea necesario para llegar al elemento que necesito
     let producto = btnProducts[index].parentElement.parentElement.parentElement;
-    let infoProducto={
+    console.log(producto);
+    let infoProducto = {
         nombre: producto.querySelector('h3').textContent,//como debemos obtener el dato desde elementos html usamos el queryselector
         imagen: producto.querySelector('img').src,
         precio: producto.querySelector('h5').textContent
@@ -49,13 +48,25 @@ function informacionProducto(index) {
 }
 
 //borrar producto de carrito
-function borrarProducto(){
+function borrarProducto() {
     //el event.target es para escuchar que etiqueta dispara eventos
     let producto = event.target;
     producto.parentElement.parentElement.remove();
-    if(con>0){
+    if (con > 0) {
         con--;
-        contadorCarrito.textContent=con;
+        contadorCarrito.textContent = con;
+        updateProductNumbers();
     }
+}
 
+function updateProductNumbers() {
+    const rows = document.querySelectorAll(".list-cart tbody tr");
+    rows.forEach((row, index) => {
+        const numberCell = row.querySelector("td:first-child");
+        numberCell.textContent = index + 1; // Actualiza el número
+        row.setAttribute("data-id", index + 1); // Actualiza el identificador único
+    });
+
+    // Actualiza el contador global
+    counter = rows.length;
 }
