@@ -34,7 +34,6 @@ function mostrarPedido(){
         ordenProductos.appendChild(row);
     });
     datosPedido.innerHTML = `
-        <p>Cliente: ${resumenCompra.nombre} ${resumenCompra.apellido}</p>
         <p>Correo: ${resumenCompra.correo}</p>
         <p>Telefono: ${resumenCompra.telefono}</p>
         <p>Dirección: ${resumenCompra.direccion}</p>
