@@ -1,4 +1,9 @@
 let tablaCarrito = document.querySelector('.cart-table tbody')
+let resumenSubtotal= document.querySelector('.res-sub-total')
+let resumenDescuento = document.querySelector('.promo')
+let resumenTotal = document.querySelector('.total')
+let resumenDomicilio = document.querySelector('.valor-domi')
+let destino = document.querySelector('.destino')
 
 document.addEventListener("DOMContentLoaded",()=>{
     cargaProductosLocalStorage();
@@ -36,6 +41,8 @@ function cargaProductosLocalStorage(){
             `;
             //agrego un hijo a la tabla, en este caso una fila
             tablaCarrito.appendChild(row);
+            //obtener los subtotales
+            resumenCompra();
         });
     }else{
         let row = document.createElement('tr');
@@ -58,7 +65,7 @@ function actualizarCantidad(index,count){
         if(listadoProductos[index].cantidad<1){
             listadoProductos[index].cantidad=1;
         }
-        let subtotal = listadoProductos[index].precio*listadoProductos[index].cantidad
+        //let subtotal = listadoProductos[index].precio*listadoProductos[index].cantidad
     }
 
     //actualizar el valor en el localStorage
@@ -72,4 +79,43 @@ function borrarProducto(index){
     localStorage.setItem('productosCarrito',JSON.stringify(listadoProductos));
     cargaProductosLocalStorage();
 }
+//resumen de compra
+function resumenCompra(){
+    let listadoProductos = JSON.parse(localStorage.getItem('productosCarrito')) || [];
+    let subtotal=0;
+    listadoProductos.forEach((prod)=>{
+        //console.log(prod)
+        subtotal += prod.precio*prod.cantidad;
+    });
+    //valor de domicilio con base en casos
+    let valorDomicilio = 0;
+    switch (destino.value) {
+        case 'Medellin': 
+            default: valorDomicilio;
+            break;
+        case 'Bello':
+            valorDomicilio = 10.000;
+            break;
+        case 'Itagui': case 'Envigado':case 'Sabaneta': 
+            valorDomicilio =15.000;
+            break;
+        case'Copacabana' : case 'Caldas' : case 'La Estrella':
+            valorDomicilio = 20.000;
+            break;
+    }
+    console.log('domi', valorDomicilio);
+    //descuento de compra
+    let descuento= (subtotal>100.000) ? (subtotal*10)/100 : 0;
+    //valor total de compra
+    let totalCarrito = subtotal - descuento + valorDomicilio
 
+
+    resumenSubtotal.textContent = subtotal.toFixed(3);
+    resumenDescuento.textContent = descuento.toFixed(3);
+    resumenTotal.textContent = totalCarrito.toFixed(3);
+    resumenDomicilio.textContent = valorDomicilio.toFixed(3);
+}
+
+destino.addEventListener('change',()=>{
+    resumenCompra();
+});
