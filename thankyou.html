@@ -65,10 +65,24 @@
      <h2 class="page-title text-center my-5 py-3" style="background-color: #ffc800;">PEDIDO EN PROCESO</h2>
      <div class="page-content">
         <div class="resumen-compra col-xxl-8 col-lg-8 col-md-8 col-sm-10 offset-xxl-2 offset-lg-2 offset-md-2 offset-sm-1">
-            <h5 class="mb-16"><span>Cliente!</span>Muchas Gracias por tu compra</h5>
-            <p>Orden #000</p>
+            <h5 class="mb-16">
             <p class="mb-32">Estamos preparando tu pedido, pronto nos comunicaremos contigo para realizar la entrega.</p>
-            <div class="card my-5">
+            <div class="productos border-bottom">
+              <table class="table list-cartOrder">
+                <thead>
+                  <tr>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>  
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- aqui va la info del producto-->
+                </tbody>
+              </table>
+            </div>
+<!--             <div class="card my-5">
               <div class="card-header">Resumen de tu compra</div>
               <div class="row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -93,7 +107,7 @@
               <div class="card-footer">
                 Card footer
               </div>
-            </div>
+            </div> -->
             <button type="button" class="btn-gracias cus-btn dark w-100 mb-32">
                 <span class="icon-wrapper">
                     <svg class="icon-svg icon-svg-copy" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
