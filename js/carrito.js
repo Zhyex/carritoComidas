@@ -98,3 +98,6 @@ function cargarProductosLocalStorage(){
         agregarProducto(producto)
     });
 }
+contadorCarrito.parentElement.addEventListener('click',()=>{
+    listadoCarrito.parentElement.classList.toggle('ocultar');
+})
