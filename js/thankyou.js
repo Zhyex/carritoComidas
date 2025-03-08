@@ -1,5 +1,5 @@
 let ordenProductos = document.querySelector('.list-cartOrder tbody')
-
+let btnRestart = document.querySelector('.btn-gracias')
 document.addEventListener('DOMContentLoaded',()=>{
     mostrarPedido();
 });
@@ -26,3 +26,7 @@ function mostrarPedido(){
         ordenProductos.appendChild(row);
     });
 }
+btnRestart.addEventListener('click',()=>{
+    localStorage.clear();
+    location.href='index.html'
+});
